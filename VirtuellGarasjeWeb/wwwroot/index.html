@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Garasje</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        .vehicle{
+            width: 200px;
+            height: auto;
+            margin: 5vw;
+            border: 2px solid black;
+        }
+
+        #app{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .vehicle > h3 {
+            margin: 0.4vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+<script>
+    let response;
+    let app = document.getElementById("app");
+    getData();
+    async function getData() {
+        response = await axios.get("/garasje")
+        console.log(response.data);
+        updateView();
+    }
+
+
+    function updateView() {
+        app.innerHTML = "";
+        for (let i = 0; i < response.data.length; i++) {
+           
+            console.log(i);
+            const vehicle = response.data[i]
+            console.log(vehicle)
+            app.innerHTML += `
+            <div class="vehicle">
+                <h3>${vehicle.brand}</h3>
+                <h3>${vehicle.name}</h3>
+                <h3>${vehicle.speed}</h3>
+                <h3>${vehicle.year}</h3>
+            </div>
+            `
+        }
+    }
+
+
+</script>
+</body>
+</html>
